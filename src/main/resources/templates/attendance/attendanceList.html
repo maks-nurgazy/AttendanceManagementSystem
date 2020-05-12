@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+    <a class="navbar-brand" href="#">Fingerprint</a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/attendance}">Attendance</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/logout}">Log out</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/signIn}">Sign in</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <select id="selection" class="mdb-select md-form" searchable="Search here..">
+        <option value="" disabled selected>Choose lesson</option>
+        <option th:each="subject : ${subjects}" th:text="${subject.name}" th:value="${subject.name}">Geometry</option>
+    </select>
+    <div id="studentList">
+        Students appears here...
+    </div>
+</div>
+
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        let sel = $('#selection');
+
+        //call function when page is loaded
+        getContent();
+        //set on change listener
+        sel.change(getContent);
+
+        function getContent() {
+
+            //create url to request fragment
+            let url = "/content";
+            if (sel.val()!=null){
+                let s = encodeURIComponent(sel.val());
+                //load fragment and replace content
+                url += "?subjectName="+s;
+                console.log(url);
+                $('#studentList').load(url);
+            }
+
+        }
+    })
+</script>
+
 
 </body>
 </html>

@@ -39,4 +39,5 @@ public class Fingerprint {
                 ", sample=" + Arrays.toString(sample) +
                 '}';
     }
+
 }

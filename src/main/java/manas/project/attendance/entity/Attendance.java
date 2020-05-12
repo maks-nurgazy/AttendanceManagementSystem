@@ -21,7 +21,6 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
     @Temporal(TemporalType.DATE)
     private Date date;
 
@@ -48,4 +47,5 @@ public class Attendance {
                 "date='" + date + '\'' +
                 '}';
     }
+
 }

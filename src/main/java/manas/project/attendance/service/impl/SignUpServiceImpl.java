@@ -2,8 +2,8 @@ package manas.project.attendance.service.impl;
 
 import manas.project.attendance.entity.User;
 import manas.project.attendance.form.UserForm;
-import manas.project.attendance.repository.UsersRepository;
 import manas.project.attendance.service.SignUpService;
+import manas.project.attendance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class SignUpServiceImpl implements SignUpService {
 
-    @Autowired
-    private UsersRepository usersRepository;
+    private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void signUp(UserForm userForm) {
@@ -29,6 +36,6 @@ public class SignUpServiceImpl implements SignUpService {
                 .role(userForm.getRole())
                 .build();
 
-        usersRepository.save(user);
+        userService.save(user);
     }
 }
